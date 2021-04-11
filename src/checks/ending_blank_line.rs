@@ -24,7 +24,7 @@ impl EndingBlankLineChecker<'_> {
 impl Check for EndingBlankLineChecker<'_> {
     fn run(&mut self, line: &LineEntry) -> Option<Warning> {
         if line.is_last_line() && !line.raw_string.ends_with(LF) {
-            Some(Warning::new(line.clone(), self.name(), self.message()))
+            Some(Warning::new(line, self.name(), self.message()))
         } else {
             None
         }
@@ -64,7 +64,7 @@ mod tests {
         let mut checker = EndingBlankLineChecker::default();
         let line = line_entry(1, 1, "a");
         let expected = Some(Warning::new(
-            line.clone(),
+            &line,
             "EndingBlankLine",
             "No blank line at the end of the file",
         ));

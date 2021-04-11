@@ -46,7 +46,7 @@ mod tests {
         let mut fixer = EndingBlankLineFixer::default();
         let mut lines = vec![line_entry(1, 2, "FOO=BAR"), line_entry(2, 2, "Z=Y")];
         let mut warning = Warning::new(
-            lines[1].clone(),
+            &lines[1],
             "EndingBlankLine",
             "No blank line at the end of the file",
         );

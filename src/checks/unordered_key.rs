@@ -51,7 +51,7 @@ impl Check for UnorderedKeyChecker<'_> {
         let another_key = sorted_keys.iter().skip_while(|&s| s != key).nth(1)?;
 
         Some(Warning::new(
-            line.clone(),
+            line,
             self.name(),
             self.message(&key, &another_key),
         ))
@@ -101,7 +101,7 @@ mod tests {
             (
                 line_entry(2, 2, "BAR=FOO"),
                 Some(Warning::new(
-                    line_entry(2, 2, "BAR=FOO"),
+                    &line_entry(2, 2, "BAR=FOO"),
                     "UnorderedKey",
                     "The BAR key should go before the FOO key",
                 )),
@@ -118,7 +118,7 @@ mod tests {
             (
                 line_entry(2, 3, "BAR=FOO"),
                 Some(Warning::new(
-                    line_entry(2, 3, "BAR=FOO"),
+                    &line_entry(2, 3, "BAR=FOO"),
                     "UnorderedKey",
                     "The BAR key should go before the FOO key",
                 )),
@@ -126,7 +126,7 @@ mod tests {
             (
                 line_entry(3, 3, "ABC=BAR"),
                 Some(Warning::new(
-                    line_entry(3, 3, "ABC=BAR"),
+                    &line_entry(3, 3, "ABC=BAR"),
                     "UnorderedKey",
                     "The ABC key should go before the BAR key",
                 )),
@@ -143,7 +143,7 @@ mod tests {
             (
                 line_entry(2, 3, "BAR=FOO"),
                 Some(Warning::new(
-                    line_entry(2, 3, "BAR=FOO"),
+                    &line_entry(2, 3, "BAR=FOO"),
                     "UnorderedKey",
                     "The BAR key should go before the FOO key",
                 )),
@@ -151,7 +151,7 @@ mod tests {
             (
                 line_entry(3, 3, "DDD=BAR"),
                 Some(Warning::new(
-                    line_entry(3, 3, "DDD=BAR"),
+                    &line_entry(3, 3, "DDD=BAR"),
                     "UnorderedKey",
                     "The DDD key should go before the FOO key",
                 )),
@@ -168,7 +168,7 @@ mod tests {
             (
                 line_entry(2, 4, "BAR=FOO"),
                 Some(Warning::new(
-                    line_entry(2, 4, "BAR=FOO"),
+                    &line_entry(2, 4, "BAR=FOO"),
                     "UnorderedKey",
                     "The BAR key should go before the FOO key",
                 )),
@@ -176,7 +176,7 @@ mod tests {
             (
                 line_entry(3, 4, "DDD=BAR"),
                 Some(Warning::new(
-                    line_entry(3, 4, "DDD=BAR"),
+                    &line_entry(3, 4, "DDD=BAR"),
                     "UnorderedKey",
                     "The DDD key should go before the FOO key",
                 )),
@@ -256,7 +256,7 @@ mod tests {
             (
                 line_entry(3, 3, "BBB=$XYZ"),
                 Some(Warning::new(
-                    line_entry(3, 3, "BBB=$XYZ"),
+                    &line_entry(3, 3, "BBB=$XYZ"),
                     "UnorderedKey",
                     "The BBB key should go before the HHH key",
                 )),
@@ -267,7 +267,7 @@ mod tests {
             (
                 line_entry(7, 3, "GGG=JJJ"),
                 Some(Warning::new(
-                    line_entry(7, 3, "GGG=JJJ"),
+                    &line_entry(7, 3, "GGG=JJJ"),
                     "UnorderedKey",
                     "The GGG key should go before the TTT key",
                 )),
@@ -275,7 +275,7 @@ mod tests {
             (
                 line_entry(8, 3, "AAA=$ZZZ"),
                 Some(Warning::new(
-                    line_entry(8, 3, "AAA=$ZZZ"),
+                    &line_entry(8, 3, "AAA=$ZZZ"),
                     "UnorderedKey",
                     "The AAA key should go before the GGG key",
                 )),

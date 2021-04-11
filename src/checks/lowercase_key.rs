@@ -21,7 +21,7 @@ impl Check for LowercaseKeyChecker<'_> {
         if key.to_uppercase() == key {
             None
         } else {
-            Some(Warning::new(line.clone(), self.name(), self.message(&key)))
+            Some(Warning::new(line, self.name(), self.message(&key)))
         }
     }
 
@@ -60,7 +60,7 @@ mod tests {
         let mut checker = LowercaseKeyChecker::default();
         let line = line_entry(1, 1, "foo_bar=FOOBAR");
         let expected = Some(Warning::new(
-            line.clone(),
+            &line,
             "LowercaseKey",
             "The foo_bar key should be in uppercase",
         ));
@@ -72,7 +72,7 @@ mod tests {
         let mut checker = LowercaseKeyChecker::default();
         let line = line_entry(1, 1, "FOo_BAR=FOOBAR");
         let expected = Some(Warning::new(
-            line.clone(),
+            &line,
             "LowercaseKey",
             "The FOo_BAR key should be in uppercase",
         ));

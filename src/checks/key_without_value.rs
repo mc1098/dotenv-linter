@@ -25,7 +25,7 @@ impl Check for KeyWithoutValueChecker<'_> {
     fn run(&mut self, line: &LineEntry) -> Option<Warning> {
         if !(line.is_empty() || line.raw_string.contains('=')) {
             Some(Warning::new(
-                line.clone(),
+                line,
                 self.name(),
                 self.message(line.get_key().unwrap_or(&line.raw_string)),
             ))
@@ -70,7 +70,7 @@ mod tests {
         let mut checker = KeyWithoutValueChecker::default();
         let line = line_entry(1, 1, "FOO");
         let expected = Some(Warning::new(
-            line.clone(),
+            &line,
             "KeyWithoutValue",
             "The FOO key should be with a value or have an equal sign",
         ));

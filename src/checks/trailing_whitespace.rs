@@ -26,7 +26,7 @@ impl Check for TrailingWhitespaceChecker<'_> {
         let raw_string = &line.raw_string;
 
         if raw_string.ends_with(' ') {
-            return Some(Warning::new(line.clone(), self.name, self.message()));
+            return Some(Warning::new(line, self.name, self.message()));
         }
 
         None
@@ -55,7 +55,7 @@ mod tests {
     fn failing_trailing_run() {
         let mut checker = TrailingWhitespaceChecker::default();
         let line = line_entry(1, 1, "DEBUG_HTTP=true  ");
-        let expected = Some(Warning::new(line.clone(), "TrailingWhitespace", MESSAGE));
+        let expected = Some(Warning::new(&line, "TrailingWhitespace", MESSAGE));
         assert_eq!(expected, checker.run(&line));
     }
 }

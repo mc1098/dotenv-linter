@@ -27,7 +27,7 @@ impl Check for SpaceCharacterChecker<'_> {
 
         if let [key, value] = &line_splitted[..] {
             if key.ends_with(' ') || value.starts_with(' ') {
-                return Some(Warning::new(line.clone(), self.name(), self.message()));
+                return Some(Warning::new(line, self.name(), self.message()));
             }
         }
 
@@ -85,7 +85,7 @@ mod tests {
     fn failing_run() {
         let mut checker = SpaceCharacterChecker::default();
         let line = line_entry(1, 1, "DEBUG-HTTP = true");
-        let expected = Some(Warning::new(line.clone(), "SpaceCharacter", MESSAGE));
+        let expected = Some(Warning::new(&line, "SpaceCharacter", MESSAGE));
         assert_eq!(expected, checker.run(&line));
     }
 
@@ -93,7 +93,7 @@ mod tests {
     fn failing_when_whitespace_before_equal_sign_run() {
         let mut checker = SpaceCharacterChecker::default();
         let line = line_entry(1, 1, "DEBUG-HTTP =true");
-        let expected = Some(Warning::new(line.clone(), "SpaceCharacter", MESSAGE));
+        let expected = Some(Warning::new(&line, "SpaceCharacter", MESSAGE));
         assert_eq!(expected, checker.run(&line));
     }
 
@@ -101,7 +101,7 @@ mod tests {
     fn failing_when_whitespace_after_equal_sign_run() {
         let mut checker = SpaceCharacterChecker::default();
         let line = line_entry(1, 1, "DEBUG-HTTP= true");
-        let expected = Some(Warning::new(line.clone(), "SpaceCharacter", MESSAGE));
+        let expected = Some(Warning::new(&line, "SpaceCharacter", MESSAGE));
         assert_eq!(expected, checker.run(&line));
     }
 }

@@ -29,7 +29,7 @@ impl Check for DuplicatedKeyChecker<'_> {
         let key = line.get_key()?;
 
         if self.keys.contains(key) {
-            return Some(Warning::new(line.clone(), self.name(), self.message(&key)));
+            return Some(Warning::new(line, self.name(), self.message(&key)));
         }
 
         self.keys.insert(key.to_string());
@@ -62,7 +62,7 @@ mod tests {
             (
                 line_entry(2, 2, "FOO=BAR"),
                 Some(Warning::new(
-                    line_entry(2, 2, "FOO=BAR"),
+                    &line_entry(2, 2, "FOO=BAR"),
                     "DuplicatedKey",
                     "The FOO key is duplicated",
                 )),
@@ -98,7 +98,7 @@ mod tests {
             (
                 line_entry(2, 4, "FOO=BAR"),
                 Some(Warning::new(
-                    line_entry(2, 4, "FOO=BAR"),
+                    &line_entry(2, 4, "FOO=BAR"),
                     "DuplicatedKey",
                     "The FOO key is duplicated",
                 )),
@@ -107,7 +107,7 @@ mod tests {
             (
                 line_entry(4, 4, "BAR=FOO"),
                 Some(Warning::new(
-                    line_entry(4, 4, "BAR=FOO"),
+                    &line_entry(4, 4, "BAR=FOO"),
                     "DuplicatedKey",
                     "The BAR key is duplicated",
                 )),
@@ -124,7 +124,7 @@ mod tests {
             (
                 line_entry(2, 3, "FOO=BAR"),
                 Some(Warning::new(
-                    line_entry(2, 3, "FOO=BAR"),
+                    &line_entry(2, 3, "FOO=BAR"),
                     "DuplicatedKey",
                     "The FOO key is duplicated",
                 )),

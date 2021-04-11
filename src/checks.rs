@@ -133,7 +133,7 @@ mod tests {
     fn run_with_invalid_line_test() {
         let line = line_entry(1, 2, "FOO");
         let warning = Warning::new(
-            line.clone(),
+            &line,
             "KeyWithoutValue",
             "The FOO key should be with a value or have an equal sign",
         );
@@ -148,7 +148,7 @@ mod tests {
     fn run_without_blank_line_test() {
         let line = line_entry(1, 1, "FOO=BAR");
         let warning = Warning::new(
-            line.clone(),
+            &line,
             "EndingBlankLine",
             "No blank line at the end of the file",
         );
@@ -164,7 +164,7 @@ mod tests {
         let line1 = line_entry(1, 3, "FOO\n");
         let line2 = line_entry(2, 3, "1FOO\n");
         let warning = Warning::new(
-            line2.clone(),
+            &line2,
             "LeadingCharacter",
             "Invalid leading character detected",
         );
@@ -191,7 +191,7 @@ mod tests {
         let line2 = line_entry(2, 4, "FOO\n");
         let line3 = line_entry(3, 4, "1FOO\n");
         let warning = Warning::new(
-            line3.clone(),
+            &line3,
             "LeadingCharacter",
             "Invalid leading character detected",
         );
@@ -208,7 +208,7 @@ mod tests {
         let line2 = line_entry(2, 4, "FOO\n");
         let line3 = line_entry(3, 4, "1FOO\n");
         let warning = Warning::new(
-            line3.clone(),
+            &line3,
             "LeadingCharacter",
             "Invalid leading character detected",
         );
@@ -230,7 +230,7 @@ mod tests {
         let line3 = line_entry(3, 5, "# dotenv-linter:on LeadingCharacter\n");
         let line4 = line_entry(4, 5, "1FOO\n");
         let warning = Warning::new(
-            line4.clone(),
+            &line4,
             "LeadingCharacter",
             "Invalid leading character detected",
         );
@@ -245,7 +245,7 @@ mod tests {
     fn only_simple_comment() {
         let line = line_entry(1, 1, "# Simple comment");
         let warning = Warning::new(
-            line.clone(),
+            &line,
             "EndingBlankLine",
             "No blank line at the end of the file",
         );

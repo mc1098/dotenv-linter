@@ -60,12 +60,12 @@ mod tests {
         ];
         let mut warnings = vec![
             Warning::new(
-                lines[0].clone(),
+                &lines[0],
                 "SpaceCharacter",
                 "The line has spaces around equal sign",
             ),
             Warning::new(
-                lines[1].clone(),
+                &lines[1],
                 "SpaceCharacter",
                 "The line has spaces around equal sign",
             ),

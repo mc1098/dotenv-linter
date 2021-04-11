@@ -30,7 +30,7 @@ impl Check for LeadingCharacterChecker<'_> {
         {
             None
         } else {
-            Some(Warning::new(line.clone(), self.name(), self.message()))
+            Some(Warning::new(&line, self.name(), self.message()))
         }
     }
 
@@ -72,7 +72,7 @@ mod tests {
         let mut checker = LeadingCharacterChecker::default();
         let line = line_entry(1, 1, ".FOO=BAR");
         assert_eq!(
-            Some(Warning::new(line.clone(), "LeadingCharacter", MESSAGE)),
+            Some(Warning::new(&line, "LeadingCharacter", MESSAGE)),
             checker.run(&line)
         );
     }
@@ -82,7 +82,7 @@ mod tests {
         let mut checker = LeadingCharacterChecker::default();
         let line = line_entry(1, 1, "*FOO=BAR");
         assert_eq!(
-            Some(Warning::new(line.clone(), "LeadingCharacter", MESSAGE)),
+            Some(Warning::new(&line, "LeadingCharacter", MESSAGE)),
             checker.run(&line)
         );
     }
@@ -92,7 +92,7 @@ mod tests {
         let mut checker = LeadingCharacterChecker::default();
         let line = line_entry(1, 1, "1FOO=BAR");
         assert_eq!(
-            Some(Warning::new(line.clone(), "LeadingCharacter", MESSAGE)),
+            Some(Warning::new(&line, "LeadingCharacter", MESSAGE)),
             checker.run(&line)
         );
     }
@@ -101,7 +101,7 @@ mod tests {
     fn leading_space() {
         let mut checker = LeadingCharacterChecker::default();
         let line = line_entry(1, 1, " FOO=BAR");
-        let expected = Some(Warning::new(line.clone(), "LeadingCharacter", MESSAGE));
+        let expected = Some(Warning::new(&line, "LeadingCharacter", MESSAGE));
         assert_eq!(expected, checker.run(&line));
     }
 
@@ -109,7 +109,7 @@ mod tests {
     fn two_leading_spaces() {
         let mut checker = LeadingCharacterChecker::default();
         let line = line_entry(1, 1, "  FOO=BAR");
-        let expected = Some(Warning::new(line.clone(), "LeadingCharacter", MESSAGE));
+        let expected = Some(Warning::new(&line, "LeadingCharacter", MESSAGE));
         assert_eq!(expected, checker.run(&line));
     }
 
@@ -117,7 +117,7 @@ mod tests {
     fn leading_tab() {
         let mut checker = LeadingCharacterChecker::default();
         let line = line_entry(1, 1, "\tFOO=BAR");
-        let expected = Some(Warning::new(line.clone(), "LeadingCharacter", MESSAGE));
+        let expected = Some(Warning::new(&line, "LeadingCharacter", MESSAGE));
         assert_eq!(expected, checker.run(&line));
     }
 }

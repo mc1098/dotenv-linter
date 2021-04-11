@@ -29,7 +29,7 @@ impl Check for QuoteCharacterChecker<'_> {
         }
 
         if val.contains('\"') || val.contains('\'') {
-            Some(Warning::new(line.clone(), self.name(), self.message()))
+            Some(Warning::new(line, self.name(), self.message()))
         } else {
             None
         }
@@ -61,7 +61,7 @@ mod tests {
             (
                 line_entry(2, 4, "FOO='BAR'"),
                 Some(Warning::new(
-                    line_entry(2, 4, "FOO='BAR'"),
+                    &line_entry(2, 4, "FOO='BAR'"),
                     "QuoteCharacter",
                     "The value has quote characters (\', \")",
                 )),
@@ -69,7 +69,7 @@ mod tests {
             (
                 line_entry(3, 4, "FOO='B\"AR'"),
                 Some(Warning::new(
-                    line_entry(3, 4, "FOO='B\"AR'"),
+                    &line_entry(3, 4, "FOO='B\"AR'"),
                     "QuoteCharacter",
                     "The value has quote characters (\', \")",
                 )),
@@ -87,7 +87,7 @@ mod tests {
             (
                 line_entry(2, 3, "FOO=\"BAR\""),
                 Some(Warning::new(
-                    line_entry(2, 3, "FOO=\"BAR\""),
+                    &line_entry(2, 3, "FOO=\"BAR\""),
                     "QuoteCharacter",
                     "The value has quote characters (\', \")",
                 )),

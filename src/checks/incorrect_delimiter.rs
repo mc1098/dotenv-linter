@@ -34,7 +34,7 @@ impl Check for IncorrectDelimiterChecker<'_> {
             .chars()
             .any(|c| !c.is_alphanumeric() && c != '_')
         {
-            return Some(Warning::new(line.clone(), self.name(), self.message(&key)));
+            return Some(Warning::new(&line, self.name(), self.message(&key)));
         }
 
         None
@@ -85,7 +85,7 @@ mod tests {
         let line = line_entry(1, 1, "***F-OOBAR=BAZ");
 
         let expected = Some(Warning::new(
-            line.clone(),
+            &line,
             "IncorrectDelimiter",
             "The ***F-OOBAR key has incorrect delimiter",
         ));
@@ -99,7 +99,7 @@ mod tests {
         let line = line_entry(1, 1, "FOO*=BAR");
 
         let expected = Some(Warning::new(
-            line.clone(),
+            &line,
             "IncorrectDelimiter",
             "The FOO* key has incorrect delimiter",
         ));
@@ -112,7 +112,7 @@ mod tests {
         let mut checker = IncorrectDelimiterChecker::default();
         let line = line_entry(1, 1, "FOO-BAR=FOOBAR");
         let expected = Some(Warning::new(
-            line.clone(),
+            &line,
             "IncorrectDelimiter",
             "The FOO-BAR key has incorrect delimiter",
         ));
@@ -124,7 +124,7 @@ mod tests {
         let mut checker = IncorrectDelimiterChecker::default();
         let line = line_entry(1, 1, "FOO BAR=FOOBAR");
         let expected = Some(Warning::new(
-            line.clone(),
+            &line,
             "IncorrectDelimiter",
             "The FOO BAR key has incorrect delimiter",
         ));
@@ -136,7 +136,7 @@ mod tests {
         let mut checker = IncorrectDelimiterChecker::default();
         let line = line_entry(1, 1, "FOO-BAR");
         let expected = Some(Warning::new(
-            line.clone(),
+            &line,
             "IncorrectDelimiter",
             "The FOO-BAR key has incorrect delimiter",
         ));

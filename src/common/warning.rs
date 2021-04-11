@@ -1,27 +1,33 @@
-use std::fmt;
+use std::{fmt, rc::Rc};
 
 use crate::common::*;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct Warning {
     pub check_name: String,
-    line: LineEntry,
+    file: Rc<FileEntry>,
+    line_number: usize,
     message: String,
 }
 
 impl Warning {
-    pub fn new(line: LineEntry, check_name: impl Into<String>, message: impl Into<String>) -> Self {
+    pub fn new(
+        line: &LineEntry,
+        check_name: impl Into<String>,
+        message: impl Into<String>,
+    ) -> Self {
         let check_name = check_name.into();
         let message = message.into();
         Self {
-            line,
+            line_number: line.number,
+            file: line.file.clone(),
             check_name,
             message,
         }
     }
 
     pub fn line_number(&self) -> usize {
-        self.line.number
+        self.line_number
     }
 }
 
@@ -30,7 +36,7 @@ impl fmt::Display for Warning {
         write!(
             f,
             "{} {}: {}",
-            format!("{}:{}", self.line.file, self.line.number).italic(),
+            format!("{}:{}", self.file, self.line_number).italic(),
             self.check_name.red().bold(),
             self.message
         )
@@ -45,7 +51,7 @@ mod tests {
     #[test]
     fn warning_fmt_test() {
         let line = line_entry(1, 1, "FOO=BAR");
-        let warning = Warning::new(line, "DuplicatedKey", "The FOO key is duplicated");
+        let warning = Warning::new(&line, "DuplicatedKey", "The FOO key is duplicated");
 
         assert_eq!(
             format!(

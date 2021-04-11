@@ -73,7 +73,7 @@ mod tests {
             blank_line_entry(3, 3),
         ];
         let mut warning = Warning::new(
-            lines[0].clone(),
+            &lines[0],
             "IncorrectDelimiter",
             "The RAILS-ENV key has has an incorrect delimter",
         );

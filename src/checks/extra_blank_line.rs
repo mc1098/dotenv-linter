@@ -36,7 +36,7 @@ impl Check for ExtraBlankLineChecker<'_> {
         self.last_blank_number = Some(line.number);
 
         if is_extra {
-            return Some(Warning::new(line.clone(), self.name(), self.message()));
+            return Some(Warning::new(line, self.name(), self.message()));
         }
 
         None
@@ -59,7 +59,7 @@ mod tests {
             let (content, message) = *assert;
             let line = line_entry(i + 1, asserts.len(), content);
 
-            let expected = message.map(|msg| Warning::new(line.clone(), "ExtraBlankLine", msg));
+            let expected = message.map(|msg| Warning::new(&line, "ExtraBlankLine", msg));
 
             assert_eq!(checker.run(&line), expected);
         }

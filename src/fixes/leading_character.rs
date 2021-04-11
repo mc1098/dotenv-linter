@@ -112,22 +112,22 @@ mod tests {
 
         let mut warnings = vec![
             Warning::new(
-                lines[0].clone(),
+                &lines[0],
                 "LeadingCharacter",
                 "Invalid leading character detected",
             ),
             Warning::new(
-                lines[1].clone(),
+                &lines[1],
                 "LeadingCharacter",
                 "Invalid leading character detected",
             ),
             Warning::new(
-                lines[2].clone(),
+                &lines[2],
                 "LeadingCharacter",
                 "Invalid leading character detected",
             ),
             Warning::new(
-                lines[3].clone(),
+                &lines[3],
                 "LeadingCharacter",
                 "Invalid leading character detected",
             ),

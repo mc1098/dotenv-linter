@@ -115,13 +115,13 @@ mod tests {
             blank_line_entry(3, 3),
         ];
         let mut warnings = vec![Warning::new(
-            lines[1].clone(),
+            &lines[1],
             "LowercaseKey",
             "The c key should be in uppercase",
         )];
 
         assert_eq!(1, run(&mut warnings, &mut lines, &[]));
-        assert_eq!("C=d", lines[1].raw_string);
+        assert_eq!("C=d", &lines[1].raw_string);
     }
 
     #[test]
@@ -132,7 +132,7 @@ mod tests {
             blank_line_entry(3, 3),
         ];
         let mut warnings = vec![Warning::new(
-            lines[1].clone(),
+            &lines[1],
             "Unfixable",
             "The UNFIXABLE- key is not fixable",
         )];
@@ -149,12 +149,12 @@ mod tests {
         ];
         let mut warnings = vec![
             Warning::new(
-                lines[0].clone(),
+                &lines[0],
                 "LowercaseKey",
                 "The a key should be in uppercase",
             ),
             Warning::new(
-                lines[1].clone(),
+                &lines[1],
                 "LowercaseKey",
                 "The c key should be in uppercase",
             ),
@@ -174,23 +174,23 @@ mod tests {
         ];
         let mut warnings = vec![
             Warning::new(
-                lines[2].clone(),
+                &lines[2],
                 "LowercaseKey",
                 "The a0 key should be in uppercase",
             ),
             Warning::new(
-                lines[3].clone(),
+                &lines[3],
                 "LowercaseKey",
                 "The a2 key should be in uppercase",
             ),
         ];
 
         assert_eq!(2, run(&mut warnings, &mut lines, &[]));
-        assert_eq!("A0=0", lines[0].raw_string);
-        assert_eq!("A1=1", lines[1].raw_string);
-        assert_eq!("A2=2", lines[2].raw_string);
-        assert_eq!("# A2=2", lines[3].raw_string);
-        assert_eq!("\n", lines[4].raw_string);
+        assert_eq!("A0=0", &lines[0].raw_string);
+        assert_eq!("A1=1", &lines[1].raw_string);
+        assert_eq!("A2=2", &lines[2].raw_string);
+        assert_eq!("# A2=2", &lines[3].raw_string);
+        assert_eq!("\n", &lines[4].raw_string);
     }
 
     #[test]
@@ -204,23 +204,23 @@ mod tests {
         ];
         let mut warnings = vec![
             Warning::new(
-                lines[2].clone(),
+                &lines[2],
                 "LowercaseKey",
                 "The a0 key should be in uppercase",
             ),
             Warning::new(
-                lines[3].clone(),
+                &lines[3],
                 "LowercaseKey",
                 "The a2 key should be in uppercase",
             ),
         ];
 
         assert_eq!(2, run(&mut warnings, &mut lines, &["DuplicatedKey"]));
-        assert_eq!("A0=0", lines[0].raw_string);
-        assert_eq!("A1=1", lines[1].raw_string);
-        assert_eq!("A2=2", lines[2].raw_string);
-        assert_eq!("A2=2", lines[3].raw_string);
-        assert_eq!("\n", lines[4].raw_string);
+        assert_eq!("A0=0", &lines[0].raw_string);
+        assert_eq!("A1=1", &lines[1].raw_string);
+        assert_eq!("A2=2", &lines[2].raw_string);
+        assert_eq!("A2=2", &lines[3].raw_string);
+        assert_eq!("\n", &lines[4].raw_string);
     }
 
     #[test]
@@ -234,23 +234,23 @@ mod tests {
         ];
         let mut warnings = vec![
             Warning::new(
-                lines[2].clone(),
+                &lines[2],
                 "LowercaseKey",
                 "The a0 key should be in uppercase",
             ),
             Warning::new(
-                lines[3].clone(),
+                &lines[3],
                 "LowercaseKey",
                 "The a2 key should be in uppercase",
             ),
         ];
 
         assert_eq!(2, run(&mut warnings, &mut lines, &["UnorderedKey"]));
-        assert_eq!("A1=1", lines[0].raw_string);
-        assert_eq!("A2=2", lines[1].raw_string);
-        assert_eq!("A0=0", lines[2].raw_string);
-        assert_eq!("# A2=2", lines[3].raw_string);
-        assert_eq!("\n", lines[4].raw_string);
+        assert_eq!("A1=1", &lines[0].raw_string);
+        assert_eq!("A2=2", &lines[1].raw_string);
+        assert_eq!("A0=0", &lines[2].raw_string);
+        assert_eq!("# A2=2", &lines[3].raw_string);
+        assert_eq!("\n", &lines[4].raw_string);
     }
 
     struct TestFixer<'a> {
